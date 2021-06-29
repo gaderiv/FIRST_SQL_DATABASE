@@ -1,0 +1,643 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.0
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Czas generowania: 18 Cze 2021, 02:48
+-- Wersja serwera: 10.4.19-MariaDB
+-- Wersja PHP: 7.3.28
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Baza danych: `filmoteka`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `adres`
+--
+
+CREATE TABLE `adres` (
+  `ID_Adresu` int(11) NOT NULL,
+  `ID_Miasta` int(11) NOT NULL,
+  `Adres` varchar(50) COLLATE utf8_polish_ci NOT NULL,
+  `Druga_Linijka_Adresu` varchar(50) COLLATE utf8_polish_ci NOT NULL,
+  `Wojewodztwo` varchar(50) COLLATE utf8_polish_ci NOT NULL,
+  `Kod_Pocztowy` varchar(10) COLLATE utf8_polish_ci NOT NULL,
+  `Telefon` varchar(20) COLLATE utf8_polish_ci NOT NULL,
+  `Ostatnia_Aktualizacja` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `adres`
+--
+
+INSERT INTO `adres` (`ID_Adresu`, `ID_Miasta`, `Adres`, `Druga_Linijka_Adresu`, `Wojewodztwo`, `Kod_Pocztowy`, `Telefon`, `Ostatnia_Aktualizacja`) VALUES
+(1, 1, 'Niewiadoma', '32/4', 'Mazowieckie', '00-001', '511511511', '2021-06-18'),
+(2, 2, 'Unnamed ', '12', '-', '124967', '75634534556', '2021-06-18'),
+(3, 3, 'zalendorf', '12/3', '-', '234-654', '123543231', '2021-06-18'),
+(4, 4, 'niebriecvy', '2/2', '-', '23855645', '1433445645344', '2021-06-18'),
+(5, 5, 'Szczecinska', '21', 'Zachodniopomorskie', '73-010', '928933924', '2021-06-18');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `film`
+--
+
+CREATE TABLE `film` (
+  `ID_Filmu` int(11) NOT NULL,
+  `ID_Jezyka` int(11) NOT NULL,
+  `ID_Kategorii` int(11) NOT NULL,
+  `Tytul` varchar(255) COLLATE utf8_polish_ci NOT NULL,
+  `Opis` varchar(255) COLLATE utf8_polish_ci NOT NULL,
+  `Rok_Produkcji` year(4) NOT NULL,
+  `Status_wyporzyczenia` tinyint(1) NOT NULL,
+  `Dlugosc` int(11) NOT NULL,
+  `Ocena` int(11) NOT NULL,
+  `Ostatnia_aktualizacja` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `film`
+--
+
+INSERT INTO `film` (`ID_Filmu`, `ID_Jezyka`, `ID_Kategorii`, `Tytul`, `Opis`, `Rok_Produkcji`, `Status_wyporzyczenia`, `Dlugosc`, `Ocena`, `Ostatnia_aktualizacja`) VALUES
+(1, 4, 1, 'Iron Man', 'Iron Man – amerykański fantastycznonaukowy film akcji z 2008 roku na podstawie serii komiksów o superbohaterze o tym samym pseudonimie wydawnictwa Marvel Comics. Za reżyserię odpowiadał Jon Favreau na podstawie scenariusza Arthura Marcuma i Matthew Hollaw', 2008, 0, 126, 8, '2021-06-18'),
+(2, 4, 1, 'Thor', 'Thor: Mroczny świat (oryg. Thor: The Dark World) – amerykański film akcji z elementami science fantasy z 2013 roku na podstawie serii komiksów o superbohaterze o imieniu Thor wydawnictwa Marvel Comics. Za reżyserię odpowiadał Alan Taylor na podstawie scen', 2013, 0, 112, 8, '2021-06-18'),
+(3, 4, 2, 'Strażnicy Galaktyki', 'Strażnicy Galaktyki (oryg. Guardians of the Galaxy) – amerykański fantastycznonaukowy film akcji z 2014 roku na podstawie serii komiksów o grupie superbohaterów o tej samej nazwie wydawnictwa Marvel Comics. Za reżyserię odpowiadał James Gunn na podstawie ', 2014, 0, 122, 9, '2021-06-18'),
+(4, 1, 1, 'Iron Man PL', 'Iron Man – amerykański fantastycznonaukowy film akcji z 2008 roku na podstawie serii komiksów o superbohaterze o tym samym pseudonimie wydawnictwa Marvel Comics. Za reżyserię odpowiadał Jon Favreau na podstawie scenariusza Arthura Marcuma i Matthew Hollaw', 2008, 1, 126, 8, '2021-06-18'),
+(5, 1, 1, 'Thor PL', 'Thor: Mroczny świat (oryg. Thor: The Dark World) – amerykański film akcji z elementami science fantasy z 2013 roku na podstawie serii komiksów o superbohaterze o imieniu Thor wydawnictwa Marvel Comics. Za reżyserię odpowiadał Alan Taylor na podstawie scen', 2013, 0, 112, 8, '2021-06-18'),
+(6, 1, 2, 'Strażnicy Galaktyki PL', 'Strażnicy Galaktyki (oryg. Guardians of the Galaxy) – amerykański fantastycznonaukowy film akcji z 2014 roku na podstawie serii komiksów o grupie superbohaterów o tej samej nazwie wydawnictwa Marvel Comics. Za reżyserię odpowiadał James Gunn na podstawie ', 2014, 0, 122, 9, '2021-06-18'),
+(7, 2, 1, 'Iron Man DE', 'Iron Man – amerykański fantastycznonaukowy film akcji z 2008 roku na podstawie serii komiksów o superbohaterze o tym samym pseudonimie wydawnictwa Marvel Comics. Za reżyserię odpowiadał Jon Favreau na podstawie scenariusza Arthura Marcuma i Matthew Hollaw', 2008, 1, 126, 8, '2021-06-18'),
+(8, 2, 1, 'Thor DE', 'Thor: Mroczny świat (oryg. Thor: The Dark World) – amerykański film akcji z elementami science fantasy z 2013 roku na podstawie serii komiksów o superbohaterze o imieniu Thor wydawnictwa Marvel Comics. Za reżyserię odpowiadał Alan Taylor na podstawie scen', 2013, 1, 112, 8, '2021-06-18'),
+(9, 2, 2, 'Strażnicy Galaktyki DE', 'Strażnicy Galaktyki (oryg. Guardians of the Galaxy) – amerykański fantastycznonaukowy film akcji z 2014 roku na podstawie serii komiksów o grupie superbohaterów o tej samej nazwie wydawnictwa Marvel Comics. Za reżyserię odpowiadał James Gunn na podstawie ', 2014, 0, 122, 9, '2021-06-18'),
+(10, 3, 1, 'Iron Man RU', 'Iron Man – amerykański fantastycznonaukowy film akcji z 2008 roku na podstawie serii komiksów o superbohaterze o tym samym pseudonimie wydawnictwa Marvel Comics. Za reżyserię odpowiadał Jon Favreau na podstawie scenariusza Arthura Marcuma i Matthew Hollaw', 2008, 1, 126, 8, '2021-06-18'),
+(11, 3, 1, 'Thor RU', 'Thor: Mroczny świat (oryg. Thor: The Dark World) – amerykański film akcji z elementami science fantasy z 2013 roku na podstawie serii komiksów o superbohaterze o imieniu Thor wydawnictwa Marvel Comics. Za reżyserię odpowiadał Alan Taylor na podstawie scen', 2013, 0, 112, 8, '2021-06-18'),
+(12, 3, 2, 'Strażnicy Galaktyki RU', 'Strażnicy Galaktyki (oryg. Guardians of the Galaxy) – amerykański fantastycznonaukowy film akcji z 2014 roku na podstawie serii komiksów o grupie superbohaterów o tej samej nazwie wydawnictwa Marvel Comics. Za reżyserię odpowiadał James Gunn na podstawie ', 2014, 0, 122, 9, '2021-06-18');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `glowna_rola`
+--
+
+CREATE TABLE `glowna_rola` (
+  `ID_Glowna_Rola` int(11) NOT NULL,
+  `Imie` varchar(255) COLLATE utf8_polish_ci NOT NULL,
+  `Nazwisko` varchar(255) COLLATE utf8_polish_ci NOT NULL,
+  `Ostatnia_Aktualizacja` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `glowna_rola`
+--
+
+INSERT INTO `glowna_rola` (`ID_Glowna_Rola`, `Imie`, `Nazwisko`, `Ostatnia_Aktualizacja`) VALUES
+(1, 'Robert', 'Downey Jr.', '2021-06-18'),
+(2, 'Chris', 'Hemsworth', '2021-06-18'),
+(3, 'Chris ', 'Pratt', '2021-06-18');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `inwentarz`
+--
+
+CREATE TABLE `inwentarz` (
+  `ID_Inwentarza` int(11) NOT NULL,
+  `ID_Filmu` int(11) NOT NULL,
+  `Ostatnia_Aktualizacja` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `inwentarz`
+--
+
+INSERT INTO `inwentarz` (`ID_Inwentarza`, `ID_Filmu`, `Ostatnia_Aktualizacja`) VALUES
+(1, 1, '2021-06-18'),
+(2, 7, '2021-06-18'),
+(3, 4, '2021-06-18'),
+(4, 10, '2021-06-18'),
+(5, 3, '2021-06-18'),
+(6, 9, '2021-06-18'),
+(7, 6, '2021-06-18'),
+(8, 12, '2021-06-18'),
+(9, 2, '2021-06-18'),
+(10, 8, '2021-06-18'),
+(11, 5, '2021-06-18'),
+(12, 11, '2021-06-18');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `jezyk`
+--
+
+CREATE TABLE `jezyk` (
+  `ID_Jezyka` int(11) NOT NULL,
+  `Jezyk` varchar(50) COLLATE utf8_polish_ci NOT NULL,
+  `Ostatnia_Aktualizacja` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `jezyk`
+--
+
+INSERT INTO `jezyk` (`ID_Jezyka`, `Jezyk`, `Ostatnia_Aktualizacja`) VALUES
+(1, 'Polski', '2021-06-18'),
+(2, 'Niemiecki', '2021-06-18'),
+(3, 'Rosyjski', '2021-06-18'),
+(4, 'Angielski', '2021-06-18');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `kategoria`
+--
+
+CREATE TABLE `kategoria` (
+  `ID_Kategorii` int(11) NOT NULL,
+  `Nazwa` varchar(25) COLLATE utf8_polish_ci NOT NULL,
+  `Ostatnia_Aktualizacja` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `kategoria`
+--
+
+INSERT INTO `kategoria` (`ID_Kategorii`, `Nazwa`, `Ostatnia_Aktualizacja`) VALUES
+(1, 'Akcja', '2021-06-18'),
+(2, 'Komedia', '2021-06-18');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `klient`
+--
+
+CREATE TABLE `klient` (
+  `ID_Klienta` int(11) NOT NULL,
+  `ID_Adresu` int(11) NOT NULL,
+  `Imie` varchar(255) COLLATE utf8_polish_ci NOT NULL,
+  `Nazwisko` varchar(255) COLLATE utf8_polish_ci NOT NULL,
+  `E-mail` varchar(50) COLLATE utf8_polish_ci NOT NULL,
+  `Aktywnosc` tinyint(1) NOT NULL,
+  `Data_Utworzenia` date NOT NULL,
+  `Ostatnia_Aktualizacja` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `klient`
+--
+
+INSERT INTO `klient` (`ID_Klienta`, `ID_Adresu`, `Imie`, `Nazwisko`, `E-mail`, `Aktywnosc`, `Data_Utworzenia`, `Ostatnia_Aktualizacja`) VALUES
+(1, 4, 'Marvtin', 'Jegnaszka', 'jegnaszka@rosija.ru', 1, '2018-06-12', '2021-06-18'),
+(2, 1, 'Robert', 'Nieznany', 'niewiem@wp.pl', 1, '2021-06-14', '2021-06-18'),
+(3, 2, 'Rick', 'Rock', 'rocky@roc.roc.eu', 1, '2016-06-02', '2021-06-18'),
+(4, 3, 'Njorn', 'Pankratz', 'pank@ratz.de', 1, '2017-06-14', '2021-06-18');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `kraj`
+--
+
+CREATE TABLE `kraj` (
+  `ID_Kraju` int(11) NOT NULL,
+  `Kraj` varchar(50) COLLATE utf8_polish_ci NOT NULL,
+  `Ostatnia_Aktualizacja` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `kraj`
+--
+
+INSERT INTO `kraj` (`ID_Kraju`, `Kraj`, `Ostatnia_Aktualizacja`) VALUES
+(1, 'Polska', '2021-06-18'),
+(2, 'Anglia', '2021-06-18'),
+(3, 'Niemcy', '2021-06-18'),
+(4, 'Rosja', '2021-06-18');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `miasto`
+--
+
+CREATE TABLE `miasto` (
+  `ID_Miasta` int(11) NOT NULL,
+  `ID_Kraju` int(11) NOT NULL,
+  `Miasto` varchar(50) COLLATE utf8_polish_ci NOT NULL,
+  `Ostatnia_Aktualizacja` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `miasto`
+--
+
+INSERT INTO `miasto` (`ID_Miasta`, `ID_Kraju`, `Miasto`, `Ostatnia_Aktualizacja`) VALUES
+(1, 1, 'Warszawa', '2021-06-18'),
+(2, 2, 'Londyn', '2021-06-18'),
+(3, 3, 'Berlin', '2021-06-18'),
+(4, 4, 'Moskwa', '2021-06-18'),
+(5, 1, 'Szczecin', '2021-06-18');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `obsługa`
+--
+
+CREATE TABLE `obsługa` (
+  `ID_Obsluga` int(11) NOT NULL,
+  `ID_Adresu` int(11) NOT NULL,
+  `ID_Sklepu` int(11) NOT NULL,
+  `Imie` varchar(255) COLLATE utf8_polish_ci NOT NULL,
+  `Nazwisko` varchar(255) COLLATE utf8_polish_ci NOT NULL,
+  `E-mail` varchar(50) COLLATE utf8_polish_ci NOT NULL,
+  `Aktywnosc` tinyint(1) NOT NULL,
+  `Haslo_MD5` varchar(40) COLLATE utf8_polish_ci NOT NULL,
+  `Ostatnia_aktualizacja` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `obsługa`
+--
+
+INSERT INTO `obsługa` (`ID_Obsluga`, `ID_Adresu`, `ID_Sklepu`, `Imie`, `Nazwisko`, `E-mail`, `Aktywnosc`, `Haslo_MD5`, `Ostatnia_aktualizacja`) VALUES
+(5, 5, 1, 'Marcin', 'Nowy', 'nowy@film.pl', 1, '42ca7a0710fe9e2be65280c0b5789d2f', '2021-06-18'),
+(6, 5, 1, 'Agata', 'Wracka', 'wracka@film.pl', 1, '7859a7dde5a69a4eb213eeabf1713dbb', '2021-06-18');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `platnosc`
+--
+
+CREATE TABLE `platnosc` (
+  `ID_Platnosci` int(11) NOT NULL,
+  `ID_Wyporzyczenia` int(11) NOT NULL,
+  `ID_Klienta` int(11) NOT NULL,
+  `ID_Obslugi` int(11) NOT NULL,
+  `Data_Platnosci` date NOT NULL,
+  `ilosc` int(19) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `platnosc`
+--
+
+INSERT INTO `platnosc` (`ID_Platnosci`, `ID_Wyporzyczenia`, `ID_Klienta`, `ID_Obslugi`, `Data_Platnosci`, `ilosc`) VALUES
+(1, 1, 4, 6, '2021-06-01', 1),
+(2, 2, 2, 5, '2021-06-08', 1),
+(3, 3, 3, 6, '2021-06-18', 1),
+(4, 4, 1, 6, '2021-06-13', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `rezyser`
+--
+
+CREATE TABLE `rezyser` (
+  `ID_Rezyser` int(11) NOT NULL,
+  `ID_Filmu` int(11) NOT NULL,
+  `ID_Glowna_Rola` int(11) NOT NULL,
+  `Imie` varchar(255) COLLATE utf8_polish_ci NOT NULL,
+  `Nazwisko` varchar(255) COLLATE utf8_polish_ci NOT NULL,
+  `Ostatnia_Aktualizacja` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `rezyser`
+--
+
+INSERT INTO `rezyser` (`ID_Rezyser`, `ID_Filmu`, `ID_Glowna_Rola`, `Imie`, `Nazwisko`, `Ostatnia_Aktualizacja`) VALUES
+(1, 1, 1, 'Jon', 'Favreau', '2021-06-18'),
+(2, 3, 3, 'James', 'Gunn', '2021-06-18'),
+(3, 2, 2, 'Alan ', 'Taylor', '2021-06-18');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `sklep`
+--
+
+CREATE TABLE `sklep` (
+  `ID_Sklep` int(11) NOT NULL,
+  `ID_Adresu` int(11) NOT NULL,
+  `Ostatnia_Aktualizacja` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `sklep`
+--
+
+INSERT INTO `sklep` (`ID_Sklep`, `ID_Adresu`, `Ostatnia_Aktualizacja`) VALUES
+(1, 5, '2021-06-18');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `wyporzyczenie`
+--
+
+CREATE TABLE `wyporzyczenie` (
+  `ID_Wyporzyczenia` int(11) NOT NULL,
+  `ID_Obslugi` int(11) NOT NULL,
+  `ID_Klienta` int(11) NOT NULL,
+  `ID_Inwentarza` int(11) NOT NULL,
+  `Data_Wyporzyczenia` date NOT NULL,
+  `Data_Zwrotu` date NOT NULL,
+  `Ostatnia_Aktualizacja` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `wyporzyczenie`
+--
+
+INSERT INTO `wyporzyczenie` (`ID_Wyporzyczenia`, `ID_Obslugi`, `ID_Klienta`, `ID_Inwentarza`, `Data_Wyporzyczenia`, `Data_Zwrotu`, `Ostatnia_Aktualizacja`) VALUES
+(1, 6, 4, 2, '2021-06-01', '2021-06-22', '2021-06-18'),
+(2, 5, 2, 3, '2021-06-08', '2021-06-29', '2021-06-18'),
+(3, 6, 3, 10, '2021-06-18', '2021-06-30', '2021-06-18'),
+(4, 6, 1, 4, '2021-06-13', '2021-06-19', '2021-06-18');
+
+--
+-- Indeksy dla zrzutów tabel
+--
+
+--
+-- Indeksy dla tabeli `adres`
+--
+ALTER TABLE `adres`
+  ADD PRIMARY KEY (`ID_Adresu`),
+  ADD KEY `ID_Miasta` (`ID_Miasta`);
+
+--
+-- Indeksy dla tabeli `film`
+--
+ALTER TABLE `film`
+  ADD PRIMARY KEY (`ID_Filmu`),
+  ADD KEY `ID_Jezyka` (`ID_Jezyka`),
+  ADD KEY `ID_Kategorii` (`ID_Kategorii`);
+
+--
+-- Indeksy dla tabeli `glowna_rola`
+--
+ALTER TABLE `glowna_rola`
+  ADD PRIMARY KEY (`ID_Glowna_Rola`);
+
+--
+-- Indeksy dla tabeli `inwentarz`
+--
+ALTER TABLE `inwentarz`
+  ADD PRIMARY KEY (`ID_Inwentarza`),
+  ADD KEY `ID_Filmu` (`ID_Filmu`);
+
+--
+-- Indeksy dla tabeli `jezyk`
+--
+ALTER TABLE `jezyk`
+  ADD PRIMARY KEY (`ID_Jezyka`);
+
+--
+-- Indeksy dla tabeli `kategoria`
+--
+ALTER TABLE `kategoria`
+  ADD PRIMARY KEY (`ID_Kategorii`);
+
+--
+-- Indeksy dla tabeli `klient`
+--
+ALTER TABLE `klient`
+  ADD PRIMARY KEY (`ID_Klienta`),
+  ADD KEY `ID_Adresu` (`ID_Adresu`);
+
+--
+-- Indeksy dla tabeli `kraj`
+--
+ALTER TABLE `kraj`
+  ADD PRIMARY KEY (`ID_Kraju`);
+
+--
+-- Indeksy dla tabeli `miasto`
+--
+ALTER TABLE `miasto`
+  ADD PRIMARY KEY (`ID_Miasta`),
+  ADD KEY `ID_Kraju` (`ID_Kraju`);
+
+--
+-- Indeksy dla tabeli `obsługa`
+--
+ALTER TABLE `obsługa`
+  ADD PRIMARY KEY (`ID_Obsluga`),
+  ADD KEY `ID_Adresu` (`ID_Adresu`),
+  ADD KEY `ID_Sklepu` (`ID_Sklepu`);
+
+--
+-- Indeksy dla tabeli `platnosc`
+--
+ALTER TABLE `platnosc`
+  ADD PRIMARY KEY (`ID_Platnosci`),
+  ADD KEY `ID_Wyporzyczenia` (`ID_Wyporzyczenia`),
+  ADD KEY `ID_Klienta` (`ID_Klienta`),
+  ADD KEY `ID_Obslugi` (`ID_Obslugi`);
+
+--
+-- Indeksy dla tabeli `rezyser`
+--
+ALTER TABLE `rezyser`
+  ADD PRIMARY KEY (`ID_Rezyser`),
+  ADD KEY `ID_Glowna_Rola` (`ID_Glowna_Rola`),
+  ADD KEY `ID_Filmu` (`ID_Filmu`);
+
+--
+-- Indeksy dla tabeli `sklep`
+--
+ALTER TABLE `sklep`
+  ADD PRIMARY KEY (`ID_Sklep`),
+  ADD KEY `ID_Adresu` (`ID_Adresu`);
+
+--
+-- Indeksy dla tabeli `wyporzyczenie`
+--
+ALTER TABLE `wyporzyczenie`
+  ADD PRIMARY KEY (`ID_Wyporzyczenia`),
+  ADD KEY `ID_Obslugi` (`ID_Obslugi`),
+  ADD KEY `ID_Klienta` (`ID_Klienta`),
+  ADD KEY `ID_Inwentarza` (`ID_Inwentarza`);
+
+--
+-- AUTO_INCREMENT dla zrzuconych tabel
+--
+
+--
+-- AUTO_INCREMENT dla tabeli `adres`
+--
+ALTER TABLE `adres`
+  MODIFY `ID_Adresu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT dla tabeli `film`
+--
+ALTER TABLE `film`
+  MODIFY `ID_Filmu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT dla tabeli `glowna_rola`
+--
+ALTER TABLE `glowna_rola`
+  MODIFY `ID_Glowna_Rola` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT dla tabeli `inwentarz`
+--
+ALTER TABLE `inwentarz`
+  MODIFY `ID_Inwentarza` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT dla tabeli `jezyk`
+--
+ALTER TABLE `jezyk`
+  MODIFY `ID_Jezyka` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT dla tabeli `kategoria`
+--
+ALTER TABLE `kategoria`
+  MODIFY `ID_Kategorii` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT dla tabeli `klient`
+--
+ALTER TABLE `klient`
+  MODIFY `ID_Klienta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT dla tabeli `kraj`
+--
+ALTER TABLE `kraj`
+  MODIFY `ID_Kraju` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT dla tabeli `miasto`
+--
+ALTER TABLE `miasto`
+  MODIFY `ID_Miasta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT dla tabeli `obsługa`
+--
+ALTER TABLE `obsługa`
+  MODIFY `ID_Obsluga` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT dla tabeli `platnosc`
+--
+ALTER TABLE `platnosc`
+  MODIFY `ID_Platnosci` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT dla tabeli `rezyser`
+--
+ALTER TABLE `rezyser`
+  MODIFY `ID_Rezyser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT dla tabeli `sklep`
+--
+ALTER TABLE `sklep`
+  MODIFY `ID_Sklep` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT dla tabeli `wyporzyczenie`
+--
+ALTER TABLE `wyporzyczenie`
+  MODIFY `ID_Wyporzyczenia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Ograniczenia dla zrzutów tabel
+--
+
+--
+-- Ograniczenia dla tabeli `adres`
+--
+ALTER TABLE `adres`
+  ADD CONSTRAINT `adres_ibfk_1` FOREIGN KEY (`ID_Miasta`) REFERENCES `miasto` (`ID_Miasta`);
+
+--
+-- Ograniczenia dla tabeli `film`
+--
+ALTER TABLE `film`
+  ADD CONSTRAINT `film_ibfk_1` FOREIGN KEY (`ID_Jezyka`) REFERENCES `jezyk` (`ID_Jezyka`),
+  ADD CONSTRAINT `film_ibfk_2` FOREIGN KEY (`ID_Kategorii`) REFERENCES `kategoria` (`ID_Kategorii`);
+
+--
+-- Ograniczenia dla tabeli `inwentarz`
+--
+ALTER TABLE `inwentarz`
+  ADD CONSTRAINT `inwentarz_ibfk_1` FOREIGN KEY (`ID_Filmu`) REFERENCES `film` (`ID_Filmu`);
+
+--
+-- Ograniczenia dla tabeli `klient`
+--
+ALTER TABLE `klient`
+  ADD CONSTRAINT `klient_ibfk_1` FOREIGN KEY (`ID_Adresu`) REFERENCES `adres` (`ID_Adresu`);
+
+--
+-- Ograniczenia dla tabeli `miasto`
+--
+ALTER TABLE `miasto`
+  ADD CONSTRAINT `miasto_ibfk_1` FOREIGN KEY (`ID_Kraju`) REFERENCES `kraj` (`ID_Kraju`);
+
+--
+-- Ograniczenia dla tabeli `obsługa`
+--
+ALTER TABLE `obsługa`
+  ADD CONSTRAINT `obsługa_ibfk_1` FOREIGN KEY (`ID_Adresu`) REFERENCES `adres` (`ID_Adresu`),
+  ADD CONSTRAINT `obsługa_ibfk_2` FOREIGN KEY (`ID_Sklepu`) REFERENCES `sklep` (`ID_Sklep`);
+
+--
+-- Ograniczenia dla tabeli `platnosc`
+--
+ALTER TABLE `platnosc`
+  ADD CONSTRAINT `platnosc_ibfk_1` FOREIGN KEY (`ID_Wyporzyczenia`) REFERENCES `wyporzyczenie` (`ID_Wyporzyczenia`),
+  ADD CONSTRAINT `platnosc_ibfk_2` FOREIGN KEY (`ID_Klienta`) REFERENCES `klient` (`ID_Klienta`),
+  ADD CONSTRAINT `platnosc_ibfk_3` FOREIGN KEY (`ID_Obslugi`) REFERENCES `obsługa` (`ID_Obsluga`);
+
+--
+-- Ograniczenia dla tabeli `rezyser`
+--
+ALTER TABLE `rezyser`
+  ADD CONSTRAINT `rezyser_ibfk_1` FOREIGN KEY (`ID_Glowna_Rola`) REFERENCES `glowna_rola` (`ID_Glowna_Rola`),
+  ADD CONSTRAINT `rezyser_ibfk_2` FOREIGN KEY (`ID_Filmu`) REFERENCES `film` (`ID_Filmu`);
+
+--
+-- Ograniczenia dla tabeli `sklep`
+--
+ALTER TABLE `sklep`
+  ADD CONSTRAINT `sklep_ibfk_1` FOREIGN KEY (`ID_Adresu`) REFERENCES `adres` (`ID_Adresu`);
+
+--
+-- Ograniczenia dla tabeli `wyporzyczenie`
+--
+ALTER TABLE `wyporzyczenie`
+  ADD CONSTRAINT `wyporzyczenie_ibfk_1` FOREIGN KEY (`ID_Obslugi`) REFERENCES `obsługa` (`ID_Obsluga`),
+  ADD CONSTRAINT `wyporzyczenie_ibfk_2` FOREIGN KEY (`ID_Klienta`) REFERENCES `klient` (`ID_Klienta`),
+  ADD CONSTRAINT `wyporzyczenie_ibfk_3` FOREIGN KEY (`ID_Inwentarza`) REFERENCES `inwentarz` (`ID_Inwentarza`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
